@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "romb2on/romb2on-frappe",
+    "description": "frappe client connector for laravel",
     "keywords": [
-        ":vendor_name",
+        "Romb2on",
         "laravel",
-        ":package_slug"
+        "romb2on-frappe"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/romb2on/romb2on-frappe",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Jurin Liyun",
+            "email": "jurinliyun@outlook.com",
             "role": "Developer"
         }
     ],
@@ -23,31 +23,26 @@
     "require-dev": {
         "laravel/pint": "^1.0",
         "nunomaduro/collision": "^7.8",
-        "larastan/larastan": "^2.0.1",
         "orchestra/testbench": "^8.8",
         "pestphp/pest": "^2.20",
         "pestphp/pest-plugin-arch": "^2.0",
-        "pestphp/pest-plugin-laravel": "^2.0",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0",
-        "spatie/laravel-ray": "^1.26"
+        "pestphp/pest-plugin-laravel": "^2.0"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Romb2on\\Frappe\\": "src/",
+            "Romb2on\\Frappe\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "Romb2on\\Frappe\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
-        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "clear": "@php vendor/bin/testbench package:purge-romb2on-frappe --ansi",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "build": [
             "@composer run prepare",
@@ -73,10 +68,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Romb2on\\Frappe\\FrappeServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "Frappe": "Romb2on\\Frappe\\Facades\\Frappe"
             }
         }
     },

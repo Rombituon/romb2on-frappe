@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Romb2on\Frappe\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class FrappeCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'romb2on-frappe';
 
     public $description = 'My command';
 
