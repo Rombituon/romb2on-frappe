@@ -95,7 +95,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Jurin Liyun](https://github.com/Romb2on)
+- [Jurin Liyun](https://github.com/mrjurin)
 - [All Contributors](../../contributors)
 
 ## License
