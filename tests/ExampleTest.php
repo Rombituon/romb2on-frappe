@@ -37,11 +37,9 @@ it('can get all data', function () {
 
 it('can get doctype', function () {
     $frappe = new Romb2on\Frappe\Frappe();
-    $res=$frappe->doctype()->getAll('DocType',[
-        'filters'=>'[["name","=","User"]]'
-    ]);
+    $res=$frappe->doctype()->getDoc('DocType','About Us Settings');
 
-    // dd($res);
+    dd($res);
     expect($res[0]->name == "User")->toBeTrue();
 });
 

@@ -23,13 +23,6 @@ You can install the package via composer:
 composer require romb2on/romb2on-frappe
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="romb2on-frappe-migrations"
-php artisan migrate
-```
-
 You can publish the config file with:
 
 ```bash
@@ -40,20 +33,46 @@ This is the contents of the published config file:
 
 ```php
 return [
+    'frappe_url' => env('FRAPPE_URL', null),
+    'frappe_api_key' => env('FRAPPE_API_KEY', null),
+    'frappe_api_secret' => env('FRAPPE_API_SECRET', null),
+    'frappe_username' => env('FRAPPE_USERNAME', null),
+    'frappe_password' => env('FRAPPE_PASSWORD', null),
 ];
 ```
 
 Optionally, you can publish the views using
 
-```bash
-php artisan vendor:publish --tag="romb2on-frappe-views"
-```
 
 ## Usage
 
+
+
 ```php
-$frappe = new Romb2on\Frappe();
-echo $frappe->echoPhrase('Hello, Romb2on!');
+//getUser
+$frappe = new Romb2on\Frappe\Frappe();
+$res=$frappe->getUser('jurin@example.com');
+
+//update user
+$res=$frappe->doctype()->update('User','jurin@example.com',[
+    'first_name'=>'Jurin'
+]);
+
+//get all data
+$res=$frappe->doctype()->getAll('User',[
+    'filters'=>'[["user_type","=","System User"]]'
+]);
+
+//get single doctype
+$res=$frappe->doctype()->getDoc('DocType','About Us Settings');
+
+//using mount
+$res=$frappe->doctype()
+    ->mount('DocType')
+    ->orderBy("name, creation asc")
+    ->fields('["name","creation"]')
+    ->paginate(1,10)
+    ->get();
 ```
 
 ## Testing

@@ -37,6 +37,7 @@ class Doctype {
         // urlencode('["*"]')
         $response = Http::withHeaders($this->frappe->headers)
                     ->get($this->frappe->url."/api/resource/".$docTypeName."?".$query);
+                    
         return json_decode($response);
     }
 
