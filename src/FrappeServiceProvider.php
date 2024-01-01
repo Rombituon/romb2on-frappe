@@ -17,9 +17,6 @@ class FrappeServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('romb2on-frappe')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_romb2on-frappe_table')
-            ->hasCommand(FrappeCommand::class);
-    }
+            ->hasConfigFile();    
+        }
 }
