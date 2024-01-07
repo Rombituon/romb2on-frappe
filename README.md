@@ -58,6 +58,15 @@ $res=$frappe->doctype()->update('User','jurin@example.com',[
     'first_name'=>'Jurin'
 ]);
 
+//create data
+$res=$frappe->doctype()->create('Error Log',[
+    'method'=>'test error',
+    'error'=>'hello world'
+]);
+
+//delete record
+$res=$frappe->doctype()->delete('Error Log','234460');
+
 //get all data
 $res=$frappe->doctype()->getAll('User',[
     'filters'=>'[["user_type","=","System User"]]'
