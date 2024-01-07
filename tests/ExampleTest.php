@@ -55,3 +55,12 @@ it('can paginate doctype', function () {
     // dd($res);
     expect(count($res->data) > 0)->toBeTrue();
 });
+
+it('can create data to frappe system', function () {
+    $frappe = new Romb2on\Frappe\Frappe();
+    $res=$frappe->doctype()->create('Error Log',[
+        'method'=>'test jurin','error'=>'hello'
+    ]);
+    dd($res);
+    expect($res->data->method == 'test jurin')->toBeTrue();
+});
