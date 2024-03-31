@@ -1,6 +1,7 @@
 <?php
 namespace Romb2on\Frappe;
 use Illuminate\Support\Facades\Http;
+use stdClass;
 
 class Doctype {
     private $frappe;
@@ -27,7 +28,7 @@ class Doctype {
         return json_decode($response);
     }
 
-    public function getAll($docTypeName, $options = [])
+    public function getAll($docTypeName, $options = [], $childFields=[])
     {
         $query = http_build_query(array_merge([
             'fields' =>'["*"]' ,
@@ -37,15 +38,72 @@ class Doctype {
         // urlencode('["*"]')
         $response = Http::withHeaders($this->frappe->headers)
                     ->get($this->frappe->url."/api/resource/".$docTypeName."?".$query);
+
+        if(count($childFields) == 0) {
+            $response = json_decode($response);
+            return $response;
+        }
+
+
+        $obj = json_decode($response);
+        // dd($obj);
+
+        $responseObj = [];
+
+        foreach ($childFields as $childObj) {
+            
+            foreach ($obj->data as $data) {
+                $mapped_key = explode('.', $childObj['mapped_key'])[1];
+                // $yes=$data->{$mapped_key}=="22noorazilahawang93@gmail.com";
+                // dd($yes);
+                if(property_exists($data,$mapped_key))
+                {
+                    $dt = $childObj['doctype'];
+                    $df = $childObj['key'];
+                    $dn = $data->{$mapped_key}; 
+                    $filters = $childObj['filters'];
+
                     
-        return json_decode($response);
+
+                    $responseObj[] = $this->getAll($dt,[
+                        'filters'=>$filters
+                    ]);
+          
+                }
+
+               
+            }
+
+            
+
+            
+            
+        }
+                    
+        return $responseObj;
     }
 
     public function create($docTypeName,$data=[])
     {
+        $cls = new stdClass();
         $response = Http::withHeaders($this->frappe->headers)
-                    ->post($this->frappe->url."/api/resource/".$docTypeName,$data);
-        return json_decode($response);
+                        ->post($this->frappe->url."/api/resource/".$docTypeName,$data);
+
+        $resObj = json_decode($response);
+
+        if(property_exists($resObj,'exc'))
+        {
+            $cls->data = $resObj;
+            $cls->status = false;
+        }
+        else
+        {
+            $cls->data = json_decode($response);
+            $cls->status = true;
+        }
+
+        return $cls;
+        
     }
 
     public function update($docTypeName,$docName,$data=[])
