@@ -55,17 +55,17 @@ it('can get all data', function () {
 // });
 
 
-// it('can paginate doctype', function () {
-//     $frappe = new Romb2on\Frappe\Frappe();
-//     $res=$frappe->doctype()
-//         ->mount('DocType')
-//         ->orderBy("name, creation asc")
-//         ->fields('["name","creation"]')
-//         ->paginate(1,10)
-//         ->get();
-//     // dd($res);
-//     expect(count($res->data) > 0)->toBeTrue();
-// });
+it('can paginate doctype', function () {
+    $frappe = new Romb2on\Frappe\Frappe();
+    $res=$frappe->doctype()
+        ->mount('DocType')
+        ->orderBy("name, creation asc")
+        ->fields('["name","creation"]')
+        ->paginate(1,10)
+        ->get();
+    dd($res);
+    expect(count($res->data) > 0)->toBeTrue();
+});
 
 it('can create data to frappe system', function () {
     $frappe = new Romb2on\Frappe\Frappe();

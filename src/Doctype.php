@@ -108,19 +108,53 @@ class Doctype {
 
     public function update($docTypeName,$docName,$data=[])
     {
+        $cls = new stdClass();
         $response = Http::withHeaders($this->frappe->headers)
                     ->put($this->frappe->url."/api/resource/".$docTypeName."/".$docName,$data);
-        return json_decode($response);
+
+        $resObj = json_decode($response);
+
+        if(property_exists($resObj,'exc'))
+        {
+            $cls->data = $resObj;
+            $cls->status = false;
+        }
+        else
+        {
+            $cls->data = json_decode($response);
+            $cls->status = true;
+        }
+
+        return $cls;
     }
 
     public function delete($docTypeName,$docName)
     {
+        $cls = new stdClass();
         $response = Http::withHeaders($this->frappe->headers)
                     ->delete($this->frappe->url."/api/resource/".$docTypeName."/".$docName);
-        return json_decode($response);
+        $resObj = json_decode($response);
+
+        if(property_exists($resObj,'exc'))
+        {
+            $cls->data = $resObj;
+            $cls->status = false;
+        }
+        else
+        {
+            $cls->data = json_decode($response);
+            $cls->status = true;
+        }
+
+        return $cls;
     }
     
 
+    /**
+     * Mounting doctype
+     * @param string $docTypeName 
+     * @return Doctype
+     */
     public function mount($docTypeName)
     {
         $this->options['doctype'] = $docTypeName;
